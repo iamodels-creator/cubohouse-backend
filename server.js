@@ -172,17 +172,24 @@ app.post('/api/inscribirse', inscribirseLimit, async (req, res) => {
   // Email de confirmacion al inscrito (fire-and-forget, no bloquea)
   sendEmail({
     to:      email,
-    subject: 'Tu solicitud fue recibida — CUBO HOUSE',
+    subject: 'Recibimos tu solicitud — CUBO HOUSE',
     html: `
       <div style="background:#0c0c0d;color:#ede8df;font-family:sans-serif;padding:48px 40px;max-width:520px;margin:0 auto">
-        <p style="color:#cc1818;font-size:11px;letter-spacing:4px;text-transform:uppercase;margin-bottom:24px">Cubo House — 17 Abril 2026</p>
-        <h1 style="font-size:28px;font-weight:900;margin-bottom:16px;letter-spacing:-1px">Solicitud recibida.</h1>
-        <p style="color:#7a7670;line-height:1.75;margin-bottom:24px">
-          Hola <strong style="color:#ede8df">${nombre.trim()}</strong>, recibimos tu solicitud para CUBO HOUSE.<br>
-          Revisaremos cada solicitud con calma. Si eres seleccionado, recibiras un correo el <strong style="color:#ede8df">17 de Abril a las 12:00</strong> con la ubicacion del evento.
+        <p style="color:#cc1818;font-size:11px;letter-spacing:4px;text-transform:uppercase;margin-bottom:28px">Cubo House &nbsp;·&nbsp; 17 Abril 2026</p>
+        <h1 style="font-size:26px;font-weight:900;margin-bottom:16px;letter-spacing:-1px;line-height:1.1">Recibimos tu solicitud.</h1>
+        <p style="color:#7a7670;line-height:1.8;margin-bottom:28px">
+          Hola <strong style="color:#ede8df">${nombre.trim()}</strong>,<br><br>
+          Tu nombre ya esta en nuestra lista. Revisamos cada solicitud personalmente y elegimos a quienes participaran en CUBO HOUSE.<br><br>
+          <strong style="color:#ede8df">Si eres seleccionado, te contactaremos directamente por WhatsApp y correo electronico</strong> antes del evento con todos los detalles.
         </p>
-        <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:24px;margin-top:32px">
-          <p style="color:#3a3a38;font-size:12px">19:00 — 02:00 &nbsp;·&nbsp; Ubicacion confidencial &nbsp;·&nbsp; Acceso por seleccion</p>
+        <div style="border-left:2px solid #cc1818;padding:16px 20px;margin-bottom:28px;background:rgba(204,24,24,.05)">
+          <p style="font-size:13px;color:#ede8df;margin:0;line-height:1.7">
+            17 de Abril &nbsp;·&nbsp; 19:00 — 02:00<br>
+            <span style="color:#7a7670">Ubicacion revelada solo a elegidos, 7 horas antes</span>
+          </p>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,.07);padding-top:20px">
+          <p style="color:#3a3a38;font-size:11px;margin:0">La inscripcion no garantiza acceso al evento. Proceso de seleccion privado.</p>
         </div>
       </div>
     `,
