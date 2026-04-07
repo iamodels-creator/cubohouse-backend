@@ -466,7 +466,7 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
     cb(new Error('CORS no permitido'));
   },
-  methods: ['GET', 'POST', 'PATCH'],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
 }));
 app.use(express.json());
 
