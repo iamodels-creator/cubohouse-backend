@@ -62,6 +62,138 @@ async function sendEmail({ to, subject, html }) {
 }
 
 /* ─────────────────────────────────────────
+   EMAIL TEMPLATES
+───────────────────────────────────────── */
+function emailConfirmacion(nombre) {
+  return `<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CUBO HOUSE</title></head>
+<body style="margin:0;padding:0;background:#0a0a0b;font-family:Arial,Helvetica,sans-serif">
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0b;padding:40px 0">
+    <tr><td align="center">
+      <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%">
+
+        <!-- HEADER -->
+        <tr>
+          <td style="background:#0c0c0d;border:1px solid rgba(255,255,255,.06);padding:0">
+
+            <!-- Logo bar -->
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:28px 40px;border-bottom:1px solid rgba(255,255,255,.06)">
+                  <img src="https://cubohouse.cl/Cubo_house_logo/Logo2.png"
+                       alt="CUBO HOUSE" height="32" style="display:block;filter:brightness(0) invert(1)">
+                </td>
+                <td align="right" style="padding:28px 40px;border-bottom:1px solid rgba(255,255,255,.06)">
+                  <span style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#cc1818;border:1px solid rgba(204,24,24,.35);padding:5px 12px">
+                    LISTA ABIERTA
+                  </span>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Red accent bar -->
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr><td style="height:3px;background:linear-gradient(90deg,#cc1818 0%,#8b0000 100%)"></td></tr>
+            </table>
+
+            <!-- Hero content -->
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:48px 40px 0">
+                  <p style="margin:0 0 20px;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#cc1818">
+                    17 de Abril &nbsp;·&nbsp; 2026
+                  </p>
+                  <h1 style="margin:0 0 24px;font-size:32px;font-weight:900;letter-spacing:-1px;line-height:1;color:#ede8df">
+                    Solicitud<br>recibida.
+                  </h1>
+                  <p style="margin:0 0 32px;font-size:15px;line-height:1.8;color:#7a7670">
+                    Hola <strong style="color:#ede8df;font-weight:600">${nombre}</strong>,<br><br>
+                    Tu nombre ya forma parte de nuestra lista de espera para <strong style="color:#ede8df">CUBO HOUSE</strong>.
+                    Revisamos cada solicitud de forma personal y cuidadosa.
+                  </p>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Info box -->
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:0 40px 40px">
+                  <table width="100%" cellpadding="0" cellspacing="0"
+                         style="border:1px solid rgba(204,24,24,.25);background:rgba(204,24,24,.04)">
+                    <tr>
+                      <td style="padding:24px 28px">
+                        <p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#cc1818">
+                          Que pasa si soy elegido
+                        </p>
+                        <p style="margin:0;font-size:14px;line-height:1.75;color:#ede8df">
+                          Te contactaremos <strong>personalmente por WhatsApp y correo electronico</strong>
+                          antes del evento. El dia 17 de Abril a las 12:00 recibiras la ubicacion exacta —
+                          7 horas antes de que comience.
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Divider -->
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr><td style="height:1px;background:rgba(255,255,255,.06)"></td></tr>
+            </table>
+
+            <!-- Event details row -->
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="33%" style="padding:24px 40px;border-right:1px solid rgba(255,255,255,.06)">
+                  <p style="margin:0 0 4px;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3a3a38">Fecha</p>
+                  <p style="margin:0;font-size:15px;font-weight:700;color:#ede8df">17 ABR</p>
+                </td>
+                <td width="33%" style="padding:24px 28px;border-right:1px solid rgba(255,255,255,.06)">
+                  <p style="margin:0 0 4px;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3a3a38">Horario</p>
+                  <p style="margin:0;font-size:15px;font-weight:700;color:#ede8df">19:00 — 02:00</p>
+                </td>
+                <td width="33%" style="padding:24px 28px">
+                  <p style="margin:0 0 4px;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3a3a38">Lugar</p>
+                  <p style="margin:0;font-size:15px;font-weight:700;color:#ede8df">Por revelar</p>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+          <td style="padding:24px 40px;background:#080808;border:1px solid rgba(255,255,255,.04);border-top:none">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <p style="margin:0;font-size:10px;color:#3a3a38;line-height:1.6">
+                    La inscripcion no garantiza acceso al evento.<br>
+                    Proceso de seleccion privado e intransferible.
+                  </p>
+                </td>
+                <td align="right">
+                  <p style="margin:0;font-size:10px;color:#3a3a38">cubohouse.cl</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
+
+</body>
+</html>`;
+}
+
+/* ─────────────────────────────────────────
    MIDDLEWARE
 ───────────────────────────────────────── */
 app.set('trust proxy', 1);
@@ -173,26 +305,7 @@ app.post('/api/inscribirse', inscribirseLimit, async (req, res) => {
   sendEmail({
     to:      email,
     subject: 'Recibimos tu solicitud — CUBO HOUSE',
-    html: `
-      <div style="background:#0c0c0d;color:#ede8df;font-family:sans-serif;padding:48px 40px;max-width:520px;margin:0 auto">
-        <p style="color:#cc1818;font-size:11px;letter-spacing:4px;text-transform:uppercase;margin-bottom:28px">Cubo House &nbsp;·&nbsp; 17 Abril 2026</p>
-        <h1 style="font-size:26px;font-weight:900;margin-bottom:16px;letter-spacing:-1px;line-height:1.1">Recibimos tu solicitud.</h1>
-        <p style="color:#7a7670;line-height:1.8;margin-bottom:28px">
-          Hola <strong style="color:#ede8df">${nombre.trim()}</strong>,<br><br>
-          Tu nombre ya esta en nuestra lista. Revisamos cada solicitud personalmente y elegimos a quienes participaran en CUBO HOUSE.<br><br>
-          <strong style="color:#ede8df">Si eres seleccionado, te contactaremos directamente por WhatsApp y correo electronico</strong> antes del evento con todos los detalles.
-        </p>
-        <div style="border-left:2px solid #cc1818;padding:16px 20px;margin-bottom:28px;background:rgba(204,24,24,.05)">
-          <p style="font-size:13px;color:#ede8df;margin:0;line-height:1.7">
-            17 de Abril &nbsp;·&nbsp; 19:00 — 02:00<br>
-            <span style="color:#7a7670">Ubicacion revelada solo a elegidos, 7 horas antes</span>
-          </p>
-        </div>
-        <div style="border-top:1px solid rgba(255,255,255,.07);padding-top:20px">
-          <p style="color:#3a3a38;font-size:11px;margin:0">La inscripcion no garantiza acceso al evento. Proceso de seleccion privado.</p>
-        </div>
-      </div>
-    `,
+    html: emailConfirmacion(nombre.trim()),
   }).catch(e => console.error('Mail error:', e.message));
 });
 
