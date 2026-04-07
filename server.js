@@ -176,7 +176,7 @@ app.get('/api/admin/inscritos', requireAdmin, adminLimit, async (req, res) => {
 
   let query = supabase
     .from('inscritos')
-    .select('id, nombre, edad, email, instagram, ciudad, elegido, notificado, created_at')
+    .select('id, nombre, edad, email, instagram, ciudad, rut, telefono, elegido, notificado, created_at')
     .order('created_at', { ascending: false })
     .range(Number(offset), Number(offset) + Number(limit) - 1);
 
