@@ -20,7 +20,8 @@ const supabase = createClient(
 );
 
 /* ─────────────────────────────────────────
-   EMAIL TRANSPORTER
+   EMAIL — usa Resend si hay RESEND_API_KEY,
+   sino intenta SMTP como fallback
 ───────────────────────────────────────── */
 const transporter = nodemailer.createTransport({
   host:   process.env.SMTP_HOST,
@@ -31,6 +32,34 @@ const transporter = nodemailer.createTransport({
     pass: process.env.SMTP_PASS,
   },
 });
+
+async function sendEmail({ to, subject, html }) {
+  if (process.env.RESEND_API_KEY) {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: process.env.EMAIL_FROM || 'CUBO HOUSE <noreply@cubohouse.cl>',
+        to,
+        subject,
+        html,
+      }),
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`Resend error: ${err}`);
+    }
+    return res.json();
+  }
+  // fallback SMTP
+  return transporter.sendMail({
+    from: `"CUBO HOUSE" <${process.env.SMTP_USER}>`,
+    to, subject, html,
+  });
+}
 
 /* ─────────────────────────────────────────
    MIDDLEWARE
@@ -137,32 +166,27 @@ app.post('/api/inscribirse', inscribirseLimit, async (req, res) => {
     return res.status(500).json({ error: 'Error al guardar solicitud.' });
   }
 
-  // Email de confirmacion al inscrito
-  try {
-    await transporter.sendMail({
-      from:    `"CUBO HOUSE" <${process.env.SMTP_USER}>`,
-      to:      email,
-      subject: 'Tu solicitud fue recibida — CUBO HOUSE',
-      html: `
-        <div style="background:#0c0c0d;color:#ede8df;font-family:sans-serif;padding:48px 40px;max-width:520px;margin:0 auto">
-          <p style="color:#cc1818;font-size:11px;letter-spacing:4px;text-transform:uppercase;margin-bottom:24px">Cubo House — 17 Abril 2026</p>
-          <h1 style="font-size:28px;font-weight:900;margin-bottom:16px;letter-spacing:-1px">Solicitud recibida.</h1>
-          <p style="color:#7a7670;line-height:1.75;margin-bottom:24px">
-            Hola <strong style="color:#ede8df">${nombre.trim()}</strong>, recibimos tu solicitud para CUBO HOUSE.<br>
-            Revisaremos cada solicitud con calma. Si eres seleccionado, recibiras un correo el <strong style="color:#ede8df">17 de Abril a las 12:00</strong> con la ubicacion del evento.
-          </p>
-          <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:24px;margin-top:32px">
-            <p style="color:#3a3a38;font-size:12px">19:00 — 02:00 &nbsp;·&nbsp; Ubicacion confidencial &nbsp;·&nbsp; Acceso por seleccion</p>
-          </div>
-        </div>
-      `,
-    });
-  } catch (mailErr) {
-    // No fallamos la respuesta si el correo falla
-    console.error('Mail error:', mailErr.message);
-  }
-
+  // Responder inmediatamente — email se envía en background
   res.status(201).json({ ok: true, id: data.id });
+
+  // Email de confirmacion al inscrito (fire-and-forget, no bloquea)
+  sendEmail({
+    to:      email,
+    subject: 'Tu solicitud fue recibida — CUBO HOUSE',
+    html: `
+      <div style="background:#0c0c0d;color:#ede8df;font-family:sans-serif;padding:48px 40px;max-width:520px;margin:0 auto">
+        <p style="color:#cc1818;font-size:11px;letter-spacing:4px;text-transform:uppercase;margin-bottom:24px">Cubo House — 17 Abril 2026</p>
+        <h1 style="font-size:28px;font-weight:900;margin-bottom:16px;letter-spacing:-1px">Solicitud recibida.</h1>
+        <p style="color:#7a7670;line-height:1.75;margin-bottom:24px">
+          Hola <strong style="color:#ede8df">${nombre.trim()}</strong>, recibimos tu solicitud para CUBO HOUSE.<br>
+          Revisaremos cada solicitud con calma. Si eres seleccionado, recibiras un correo el <strong style="color:#ede8df">17 de Abril a las 12:00</strong> con la ubicacion del evento.
+        </p>
+        <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:24px;margin-top:32px">
+          <p style="color:#3a3a38;font-size:12px">19:00 — 02:00 &nbsp;·&nbsp; Ubicacion confidencial &nbsp;·&nbsp; Acceso por seleccion</p>
+        </div>
+      </div>
+    `,
+  }).catch(e => console.error('Mail error:', e.message));
 });
 
 /* ─────────────────────────────────────────
@@ -223,8 +247,7 @@ app.post('/api/admin/notificar', requireAdmin, adminLimit, async (req, res) => {
 
   for (const p of elegidos) {
     try {
-      await transporter.sendMail({
-        from:    `"CUBO HOUSE" <${process.env.SMTP_USER}>`,
+      await sendEmail({
         to:      p.email,
         subject: 'Fuiste seleccionado — CUBO HOUSE',
         html: `
@@ -275,8 +298,7 @@ app.post('/api/admin/enviar-ubicacion', requireAdmin, adminLimit, async (req, re
 
   for (const p of elegidos) {
     try {
-      await transporter.sendMail({
-        from:    `"CUBO HOUSE" <${process.env.SMTP_USER}>`,
+      await sendEmail({
         to:      p.email,
         subject: 'La ubicacion — CUBO HOUSE esta noche',
         html: `
