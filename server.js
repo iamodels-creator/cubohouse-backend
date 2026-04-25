@@ -103,7 +103,7 @@ function emailElegido(nombre) {
               <tr>
                 <td style="padding:48px 40px 0">
                   <p style="margin:0 0 20px;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#cc1818">
-                    17 de Abril &nbsp;&middot;&nbsp; 2026
+                    29 de Mayo &nbsp;&middot;&nbsp; 2026
                   </p>
                   <h1 style="margin:0 0 24px;font-size:36px;font-weight:900;letter-spacing:-1px;line-height:1;color:#ede8df">
                     Fuiste<br>seleccionado.
@@ -129,7 +129,7 @@ function emailElegido(nombre) {
                           Proximo paso
                         </p>
                         <p style="margin:0;font-size:14px;line-height:1.75;color:#ede8df">
-                          El <strong>17 de Abril a las 12:00</strong> recibiras la ubicacion exacta del evento
+                          El <strong>29 de Mayo a las 12:00</strong> recibirás la ubicación exacta del evento
                           directamente en este correo y por <strong>WhatsApp</strong>.<br>
                           Guarda este mensaje — es tu comprobante de acceso.
                         </p>
@@ -150,7 +150,7 @@ function emailElegido(nombre) {
               <tr>
                 <td width="33%" style="padding:24px 40px;border-right:1px solid rgba(255,255,255,.06)">
                   <p style="margin:0 0 4px;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3a3a38">Fecha</p>
-                  <p style="margin:0;font-size:15px;font-weight:700;color:#cc1818">17 ABR</p>
+                  <p style="margin:0;font-size:15px;font-weight:700;color:#cc1818">29 MAY</p>
                 </td>
                 <td width="33%" style="padding:24px 28px;border-right:1px solid rgba(255,255,255,.06)">
                   <p style="margin:0 0 4px;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3a3a38">Horario</p>
@@ -232,14 +232,14 @@ function emailUbicacion(nombre, ubicacion) {
               <tr>
                 <td style="padding:48px 40px 0">
                   <p style="margin:0 0 20px;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#cc1818">
-                    17 de Abril &nbsp;&middot;&nbsp; 2026
+                    29 de Mayo &nbsp;&middot;&nbsp; 2026
                   </p>
                   <h1 style="margin:0 0 24px;font-size:36px;font-weight:900;letter-spacing:-1px;line-height:1;color:#ede8df">
-                    La<br>ubicacion.
+                    La<br>ubicación.
                   </h1>
                   <p style="margin:0 0 32px;font-size:15px;line-height:1.8;color:#7a7670">
                     Hola <strong style="color:#ede8df;font-weight:600">${nombre}</strong>,<br><br>
-                    Esta es la ubicacion del evento de esta noche.
+                    Esta es la ubicación del evento de esta noche.
                     Presenta este correo en la entrada.
                   </p>
                 </td>
@@ -277,7 +277,7 @@ function emailUbicacion(nombre, ubicacion) {
               <tr>
                 <td width="33%" style="padding:24px 40px;border-right:1px solid rgba(255,255,255,.06)">
                   <p style="margin:0 0 4px;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3a3a38">Fecha</p>
-                  <p style="margin:0;font-size:15px;font-weight:700;color:#cc1818">17 ABR</p>
+                  <p style="margin:0;font-size:15px;font-weight:700;color:#cc1818">29 MAY</p>
                 </td>
                 <td width="33%" style="padding:24px 28px;border-right:1px solid rgba(255,255,255,.06)">
                   <p style="margin:0 0 4px;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3a3a38">Puertas abren</p>
@@ -385,8 +385,8 @@ function emailConfirmacion(nombre) {
                           Que pasa si soy elegido
                         </p>
                         <p style="margin:0;font-size:14px;line-height:1.75;color:#ede8df">
-                          Te contactaremos <strong>personalmente por WhatsApp y correo electronico</strong>
-                          antes del evento. El dia 17 de Abril a las 12:00 recibiras la ubicacion exacta —
+                          Te contactaremos <strong>personalmente por WhatsApp y correo electrónico</strong>
+                          antes del evento. El 29 de Mayo a las 12:00 recibirás la ubicación exacta —
                           7 horas antes de que comience.
                         </p>
                       </td>
@@ -406,7 +406,7 @@ function emailConfirmacion(nombre) {
               <tr>
                 <td width="33%" style="padding:24px 40px;border-right:1px solid rgba(255,255,255,.06)">
                   <p style="margin:0 0 4px;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3a3a38">Fecha</p>
-                  <p style="margin:0;font-size:15px;font-weight:700;color:#ede8df">17 ABR</p>
+                  <p style="margin:0;font-size:15px;font-weight:700;color:#ede8df">29 MAY</p>
                 </td>
                 <td width="33%" style="padding:24px 28px;border-right:1px solid rgba(255,255,255,.06)">
                   <p style="margin:0 0 4px;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3a3a38">Horario</p>
@@ -429,8 +429,8 @@ function emailConfirmacion(nombre) {
               <tr>
                 <td>
                   <p style="margin:0;font-size:10px;color:#3a3a38;line-height:1.6">
-                    La inscripcion no garantiza acceso al evento.<br>
-                    Proceso de seleccion privado e intransferible.
+                    La inscripción no garantiza acceso al evento.<br>
+                    Proceso de selección privado e intransferible.
                   </p>
                 </td>
                 <td align="right">
@@ -660,7 +660,7 @@ app.post('/api/admin/enviar-ubicacion', requireAdmin, adminLimit, async (req, re
     try {
       await sendEmail({
         to:      p.email,
-        subject: 'La ubicacion — CUBO HOUSE esta noche',
+        subject: 'La ubicación — CUBO HOUSE esta noche',
         html:    emailUbicacion(p.nombre, ubicacion),
       });
       resultados.push({ id: p.id, ok: true });
